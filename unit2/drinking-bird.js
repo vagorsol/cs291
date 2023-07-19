@@ -83,9 +83,18 @@ function createSupport() {
 	scene.add( cube );
 
 	// right foot
+	cube = new THREE.Mesh(new THREE.CubeGeometry(), cubeMaterial);
+	cube.position.x = 0;
+	cube.position.y = 52/2;
+	cube.position.z = -(77 + 6/2); // reflect/opposite of left foot
+	scene.add( cube );
 
 	// right leg
-
+	cube = new THREE.Mesh(new THREE.CubeGeometry(), cubeMaterial);
+	cube.position.x = 0;
+	cube.position.y = (334+52)/2;
+	cube.position.z = -(77 + 6/2); // reflect/opposite of left leg
+	scene.add( cube );
 }
 
 // Body of the bird - body and the connector of body and head
@@ -93,12 +102,47 @@ function createBody() {
 	var sphereMaterial = new THREE.MeshLambertMaterial( { color: 0xA00000 } );
 	var cylinderMaterial = new THREE.MeshLambertMaterial( { color: 0x0000D0 } );
 
+	// body
+	var body= new (THREE.SphereGeometry(58, 32, 16), sphereMaterial);
+	body.position.x = 0;
+	body.position.y = 160;
+	body.position.z = 0; 
+	scene.add(body);
+
+	// neck
+	var neck = new THREE.Mesh(THREE.CylinderGeometry(12, 12, 390, 32), cylinderMaterial);
+	neck.position.x = 0;
+	neck.position.y = 160 + 195;
+	neck.position.z = 0;
+	scene.add(neck);
+
 }
 
 // Head of the bird - head + hat
 function createHead() {
 	var sphereMaterial = new THREE.MeshLambertMaterial( { color: 0xA00000 } );
 	var cylinderMaterial = new THREE.MeshLambertMaterial( { color: 0x0000D0 } );
+	
+	// head
+	var head = new THREE.Mesh(THREE.SphereGeometry(52, 32, 16), sphereMaterial);
+	head.position.x = 0;
+	head.position.y = 550;
+	head.position.z = 0; // insert bitching about not being able to test positions bc NO SUPPORT FOR 
+	scene.add(head);
+
+	// hat rim
+	var hat = new THREE.Mesh(THREE.CylinderGeometry(71, 71, 10, 32), cylinderMaterial);
+	hat.position.x = 0;
+	hat.position.y = 590 + 5; // offset be half of hat thickness (i think)
+	hat.position.z = 0;
+	scene.add(hat);
+
+	// hat top
+	hat = new THREE.Mesh(THREE.CylinderGeometry(40, 40, 70, 32), cylinderMaterial);
+	hat.position.x = 0;
+	hat.position.y = 600 + 35; // on top of hat rim + half to get in proper position
+	hat.position.z = 0;
+	scene.add(hat);
 
 }
 
