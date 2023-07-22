@@ -76,7 +76,12 @@ function fillScene() {
 	cube.position.y = 14;
 	cube.position.x = 70/2 - 10;
 	cube.rotation.y = -60 * Math.PI/180;
-	scene.add( cube );
+
+	var minuteHand = new THREE.Object3D(); // lets rotate after translation
+	minuteHand.add(cube); // says which object to then/now translate 
+
+	minuteHand.rotation.y = -60 * Math.PI / 180;
+	scene.add(minuteHand);
 
 	var sphere = new THREE.Mesh(
 		new THREE.SphereGeometry( 0.5, 32, 16 ), hourHandMaterial );
@@ -87,7 +92,11 @@ function fillScene() {
 	sphere.scale.y = 4;
 	sphere.scale.z = 4;
 
-	scene.add( sphere );
+	var hourHand = new THREE.Object3D();
+	hourHand.add(sphere);
+
+	hourHand.rotation.y = 30 * Math.PI /180;
+	scene.add(hourHand);
 }
 
 function init() {
