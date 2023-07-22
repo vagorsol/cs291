@@ -52,15 +52,19 @@ function fillScene() {
 	// Move the forearm itself to the end of the upper arm.
 	forearm.position.y = uaLength;
 	arm.add( forearm );
-	scene.add( arm );
 
 	// YOUR CODE HERE
 	body = new THREE.Object3D();
 	var bodyLength = 60;
+
 	// Add robot body here, put arm at top.
-	// Note that "body" is already declared at top of this code.
+	// Note that "body" is already declared at top of this code.\
+	arm.position.y = bodyLength; // moves arm to end of body
+	body.add(arm);
+	scene.add( body );
+
 	// Here's the call to create the body itself:
-	// createRobotBody( body, bodyLength, robotBodyMaterial );
+	createRobotBody( body, bodyLength, robotBodyMaterial );
 	// ALSO CHECK OUT GUI CONTROLS FOR BODY
 	// IN THE FUNCTIONS setupGUI() and render()
 	// Note you'll have to add the body to the scene to get it to display.
@@ -205,7 +209,7 @@ function render() {
 
 	// UNCOMMENT FOLLOWING LINES TO ENABLE CONTROLS FOR BODY:
 
-	// body.rotation.y = effectController.by * Math.PI/180;	// yaw
+	body.rotation.y = effectController.by * Math.PI/180;	// yaw
 
 	arm.rotation.y = effectController.uy * Math.PI/180;	// yaw
 	arm.rotation.z = effectController.uz * Math.PI/180;	// roll
@@ -244,7 +248,7 @@ function setupGui() {
 	h.add( effectController, "newGround" ).name("Show ground");
 	h.add( effectController, "newAxes" ).name("Show axes");
 	h = gui.addFolder("Arm angles");
-	// student, uncomment: h.add(effectController, "by", -180.0, 180.0, 0.025).name("Body y");
+	h.add(effectController, "by", -180.0, 180.0, 0.025).name("Body y"); // body ui y axis
 	h.add(effectController, "uy", -180.0, 180.0, 0.025).name("Upper arm y");
 	h.add(effectController, "uz", -45.0, 45.0, 0.025).name("Upper arm z");
 	h.add(effectController, "fy", -180.0, 180.0, 0.025).name("Forearm y");

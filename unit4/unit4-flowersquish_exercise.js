@@ -45,10 +45,19 @@ function fillScene() {
 	// and they should be tilted 20 degrees up from the position in the previous exercise
 
 	var cylinder = new THREE.Mesh( cylGeom, petalMaterial );
-	var petal = new THREE.Object3D();
-	petal.add( cylinder );
+	cylinder.scale.x = 0.25; // squish height, also apply to cylinder bc transform same for all
+	cylinder.position.y = petalLength / 2; // more so tip at origin so when petal tilt the petal tip is still at center of the pollen thing
 
-	flower.add( petal );
+	for(var i = 0; i < 24; i++) {
+		var petal = new THREE.Object3D();
+		petal.add( cylinder );
+
+		petal.rotate.z = 70 * Math.PI / 180;
+		petal.rotate.y = 15 * i * Math.PI / 180;
+		petal.position.y = flowerHeight;
+
+		flower.add( petal );
+	}
 
 	// Rest of the flower
 	var stamenMaterial = new THREE.MeshLambertMaterial( { color: 0x333310 } );
