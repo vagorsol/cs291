@@ -161,20 +161,37 @@ function createDrinkingBird() {
 	var crossbarMaterial = new THREE.MeshPhongMaterial( { color: 0x808080, specular: 0xFFFFFF, shininess: 400 } );
 	var eyeMaterial = new THREE.MeshPhongMaterial( { color: 0x000000, specular: 0x303030, shininess: 4 } );
 
-	// YOUR CODE HERE
-	// Add a crossbar support, a nose, and eyes.
-	// Crossbar: use crossbarMaterial and
-	//   THREE.CylinderGeometry( XX, XX, XX, 32 ) for the tessellation.
-	//   The cylinder should have a radius of 5, length 200 and be at height Y=360
-	//   and rotated 90 degrees into position.
-	// Nose: use headMaterial and
-	//   THREE.CylinderGeometry( XX, XX, XX, 32 ) for the tessellation.
-	//   The cone should have a radius of 6 at the tip, 14 at the bottom, height 70
-	//   It should be rotated 90 degrees and put into position at -70, 530.
-	// Eyes: use eyeMaterial and
-	//   THREE.SphereGeometry( XX, 32, 16 ) for the tessellation.
-	//   Each sphere should have radius of 10 and be moved to X=-48, Y=560,
-	//   then rotated 20 degrees left and right to make a pair.
+	// crossbar
+	var crossbar = new THREE.Mesh(
+		new THREE.CylinderGeometry(5, 5,200, 32), crossbarMaterial);
+	crossbar.position.set(0,360, 0);
+	crossbar.rotation.x = 90 * Math.PI / 180;
+	scene.add(crossbar);
+
+	// nose (beak)
+	var beak = new THREE.Mesh(
+		new THREE.CylinderGeometry(6, 14, 70, 32));
+	beak.position.set(-70, 530, 0);
+	beak.rotation.x = 90 * Math.PI / 180;
+	scene.add(beak);
+
+	// eyes
+	var sphere = new THREE.Mesh(
+		new THREE.SphereGeometry(10, 32, 16), eyeMaterial);
+
+	for(var i = 1; i < 3; i++) {
+		var dir = (i%2) ? 1:-1; // do it this way so i have to write less code
+
+		sphere.position.set(-48, 560, 0);
+
+		// do so to rotate after transform (order usually is scale -> rotate -> transform)
+		var eye = new THREE.Object3D();
+		eye.add(sphere);
+		eye.rotation.y = dir * 20 * Math.PI / 180;
+
+		scene.add(eye);
+	}
+	
 }
 
 function fillScene() {

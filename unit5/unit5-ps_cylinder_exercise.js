@@ -27,13 +27,16 @@ function createCylinderFromEnds( material, radiusTop, radiusBottom, top, bottom,
 	segmentsWidth = (segmentsWidth === undefined) ? 32 : segmentsWidth;
 	openEnded = (openEnded === undefined) ? false : openEnded;
 
-	// Dummy settings, replace with proper code:
-	var length = 100;
-	var cylAxis = new THREE.Vector3(100,100,-100);
-	var center = new THREE.Vector3(-100,100,100);
-	////////////////////
+	// getting height
+	var cylAxis = new THREE.Vector3().subVectors(top, bottom);
+	var cylLength = cylAxis.length();
 
-	var cylGeom = new THREE.CylinderGeometry( radiusTop, radiusBottom, length, segmentsWidth, 1, openEnded );
+	// getting center - take average of two points location
+	var center = new THREE.Vector3(); 
+	center.addVectors(top, bottom);
+	center.divideScalar(2.0);
+
+	var cylGeom = new THREE.CylinderGeometry( radiusTop, radiusBottom, cylLength, segmentsWidth, 1, openEnded );
 	var cyl = new THREE.Mesh( cylGeom, material );
 
 	// pass in the cylinder itself, its desired axis, and the place to move the center.

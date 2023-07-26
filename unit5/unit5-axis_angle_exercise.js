@@ -49,14 +49,15 @@ function fillScene() {
 	// YOUR CODE HERE
 	var cylinder = new THREE.Mesh(
 		new THREE.CylinderGeometry( 0.2, 0.2, cylLength, 32 ), cylinderMaterial );
-	var rotationAxis = new THREE.Vector3(1,0,-1);
-	// makeRotationAxis wants its axis normalized
-	rotationAxis.normalize();
-	// don't use position, rotation, scale
-	cylinder.matrixAutoUpdate = false;
-	cylinder.matrix.makeRotationAxis( rotationAxis, theta );
-	scene.add( cylinder );
-
+	for(var i = 0; i < 4; i++){
+		var x = (i < 2) ? 1: -1; 
+		var z = (i % 2) ? 1 : -1;
+		var rotationAxis = new THREE.Vector3(x,0,z);
+		rotationAxis.normalize(); // makeRotationAxis wants its axis normalized
+		cylinder.matrixAutoUpdate = false; // don't use position, rotation, scale
+		cylinder.matrix.makeRotationAxis( rotationAxis, theta );
+		scene.add( cylinder );
+	}
 }
 
 function drawHelpers() {
