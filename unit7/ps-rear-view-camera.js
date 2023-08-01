@@ -297,6 +297,16 @@ function render() {
 	renderer.render( scene, camera );
 
 	// Student: set rearCam so it's pointing in the opposite direction than the camera
+	rearCam.position.copy(camera.position);
+
+	// get vector from camera position to target (target - camera bc. backwards)
+	rearTarget.copy(camera.position);
+	rearTarget.sub(cameraControls.target);
+
+	// add vector (backwards) to camera position to look backwards
+	rearTarget.add(camera.position);
+
+	rearCam.lookAt(rearTarget);
 
 	// rearview render
 	renderer.enableScissorTest( true );
