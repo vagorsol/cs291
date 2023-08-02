@@ -22,18 +22,12 @@ function fillScene() {
 	// at -1000,-1000,-1000, -900,-1000,-1000,
 	// and so on, for the 21*21*21 = 9261 points.
 
-	for ( var i = 0; i < 8000; i ++ ) {
-
-		var vertex = new THREE.Vector3();
-		// accept the point only if it's in the sphere
-		do {
-			vertex.x = 2000 * Math.random() - 1000;
-			vertex.y = 2000 * Math.random() - 1000;
-			vertex.z = 2000 * Math.random() - 1000;
-		} while ( vertex.length() > 1000 );
-
-		geometry.vertices.push( vertex );
-
+	for (var x = -1000; x <= 1000; x + 100) {
+		for (var y = -1000; y <= 1000; y + 100) {
+			for (var z = -1000; z <= 1000; z + 100) {
+				geometry.verticies.push(new THREE.Vector3(x, y, z));
+			}
+		}
 	}
 
 	var disk = THREE.ImageUtils.loadTexture( path + 'media/img/cs291/disc.png' );

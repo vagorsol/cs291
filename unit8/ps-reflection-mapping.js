@@ -37,7 +37,8 @@ function fillScene() {
 	textureCube.format = THREE.RGBFormat;
 
 	var teapotMaterial = new THREE.MeshPhongMaterial(
-		{ color: 0x770000, specular:0xffaaaa } );
+		{ color: 0x770000, specular:0xffaaaa,
+		envMap: textureCube } ); // the enviormental map (to the sky map)
 
 	var teapot = new THREE.Mesh(
 		new THREE.TeapotGeometry( teapotSize,
